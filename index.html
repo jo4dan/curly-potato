@@ -12,7 +12,6 @@
 
   <style>
     :root{
-      /* Flyer palette */
       --navy-900:#191f2f;
       --navy-700:#343f5c;
       --wine-700:#8d2a41;
@@ -24,22 +23,19 @@
       --muted:rgba(250,234,227,.72);
       --line:rgba(250,234,227,.14);
 
-      /* 8pt grid spacing */
       --s1:8px;  --s2:16px; --s3:24px; --s4:32px;
       --s5:40px; --s6:48px; --s7:56px; --s8:64px;
 
       --radius: 18px;
       --radius-sm: 14px;
-
       --max: 1120px;
 
       --safeTop: env(safe-area-inset-top, 0px);
       --safeBottom: env(safe-area-inset-bottom, 0px);
 
-      --headerH: 72px;             /* updated by JS */
-      --scrollGap: 14px;           /* extra offset for anchor scroll */
+      --headerH: 72px;
+      --scrollGap: 14px;
 
-      /* Logo tint (peach-rose) */
       --logo-filter: brightness(0) saturate(100%)
                      invert(87%) sepia(16%) saturate(900%)
                      hue-rotate(325deg) brightness(96%) contrast(88%);
@@ -54,7 +50,6 @@
       -webkit-text-size-adjust: 100%;
       overflow-x:hidden;
       padding-bottom: var(--safeBottom);
-
       background:
         radial-gradient(1100px 700px at 82% 12%, rgba(246,190,173,.95), rgba(246,190,173,0) 56%),
         radial-gradient(900px 700px at 56% 38%, rgba(186,45,61,.82), rgba(186,45,61,0) 62%),
@@ -77,7 +72,6 @@
     a{ color:inherit; text-decoration:none; }
     .wrap{ width:min(var(--max), calc(100% - 2*var(--s3))); margin:0 auto; }
 
-    /* Reduce "big UI" feeling */
     .ui{
       font-family:"Cinzel", ui-serif, serif;
       letter-spacing:.08em;
@@ -86,21 +80,17 @@
       color:rgba(250,234,227,.88);
     }
 
-    /* Logo helpers */
     .logoImg{
       display:block;
       height: 28px;
       width:auto;
       object-fit: contain;
       opacity: .92;
-      /* Removes the SVG's white background by blending it into the header surface */
       filter: drop-shadow(0 10px 26px rgba(0,0,0,.28));
     }
 
     .heroLogo{
-      height:auto;
       width: min(420px, 100%);
-      height:auto;
       margin: 0 0 var(--s2);
       opacity: .92;
       filter: drop-shadow(0 14px 34px rgba(0,0,0,.32));
@@ -114,7 +104,6 @@
       white-space:nowrap; border:0;
     }
 
-    /* Header */
     header{
       position:sticky;
       top:0;
@@ -161,20 +150,15 @@
       transform: translateY(-1px);
     }
 
-    .actions{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-    }
+    .actions{ display:flex; align-items:center; gap: 10px; }
 
-    /* Smaller buttons (still tappable) */
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:8px;
-      min-height:44px;       /* tap target */
-      padding: 10px 12px;    /* looks smaller due to small font */
+      min-height:44px;
+      padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid rgba(250,234,227,.22);
       background: rgba(25,31,47,.18);
@@ -211,13 +195,9 @@
       line-height:1;
     }
 
-    .mobileMenu{
-      display:none;
-      padding: 0 0 var(--s2);
-    }
+    .mobileMenu{ display:none; padding: 0 0 var(--s2); }
     .mobileMenu.open{ display:block; }
 
-    /* Make mobile menu styling work for both <a> and injected <button> */
     .mobileMenu a,
     .mobileMenu .menuItem{
       display:block;
@@ -236,15 +216,12 @@
       cursor:pointer;
     }
 
-    /* Main layout */
     main{ padding-bottom: var(--s4); }
-
     section{
       padding: var(--s6) 0;
       scroll-margin-top: calc(var(--headerH) + var(--scrollGap));
     }
 
-    /* Bento surface */
     .surface{
       border-radius: var(--radius);
       border:1px solid rgba(250,234,227,.14);
@@ -271,7 +248,6 @@
       border-color: rgba(250,234,227,.14);
     }
 
-    /* Type scale (smaller, breathable) */
     h1{
       margin:0 0 var(--s2);
       font-family:"Cinzel", ui-serif, serif;
@@ -281,7 +257,6 @@
       font-size: clamp(2.0rem, 3.2vw, 3.0rem);
       line-height:1.10;
     }
-
     h2{
       margin:0 0 var(--s2);
       font-family:"Cinzel", ui-serif, serif;
@@ -308,19 +283,13 @@
       line-height: 1.5;
     }
 
-    /* Hero */
     .hero{ padding-top: var(--s5); }
     .heroInner{ padding: var(--s4); }
     .heroGrid{ align-items:start; }
     .heroLeft{ grid-column: span 7; }
     .heroRight{ grid-column: span 5; }
 
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      margin-top: var(--s2);
-    }
+    .chips{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: var(--s2); }
     .chip{
       display:inline-flex;
       align-items:center;
@@ -333,10 +302,8 @@
       color: rgba(250,234,227,.88);
       font-size: 13px;
     }
-
     .heroCtas{ display:flex; gap:10px; flex-wrap:wrap; margin-top: var(--s3); }
 
-    /* Accordions */
     details{
       border:1px solid rgba(250,234,227,.12);
       border-radius: var(--radius-sm);
@@ -344,7 +311,6 @@
       overflow:hidden;
     }
     details + details{ margin-top: 10px; }
-
     summary{
       list-style:none;
       cursor:pointer;
@@ -385,24 +351,15 @@
       font-size: 16px;
       line-height: 1.55;
     }
-    .bullets{
-      margin: 10px 0 0;
-      padding: 0 0 0 18px;
-    }
+    .bullets{ margin: 10px 0 0; padding: 0 0 0 18px; }
     .bullets li{ margin: 6px 0; }
 
-    /* Contact */
     .contactGrid .panel{ padding: var(--s3); }
     .contactGrid .left{ grid-column: span 6; }
     .contactGrid .mid{ grid-column: span 3; }
     .contactGrid .right{ grid-column: span 3; }
 
-    .pillRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      margin-top: var(--s2);
-    }
+    .pillRow{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: var(--s2); }
     .pill{
       display:inline-flex;
       align-items:center;
@@ -484,190 +441,143 @@
       gap: 10px;
     }
 
-    /* reveal */
     .reveal{ opacity:0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
     .reveal.in{ opacity:1; transform:none; }
 
-    /* Responsive */
     @media (max-width: 920px){
       .navlinks{ display:none; }
       .burger{ display:inline-grid; place-items:center; }
-
       .heroLeft, .heroRight{ grid-column: span 12; }
       section{ padding: var(--s5) 0; }
-
-      .contactGrid .left,
-      .contactGrid .mid,
-      .contactGrid .right{ grid-column: span 12; }
+      .contactGrid .left, .contactGrid .mid, .contactGrid .right{ grid-column: span 12; }
     }
 
     @media (max-width: 560px){
       .wrap{ width: min(var(--max), calc(100% - 2*var(--s2))); }
       .heroInner{ padding: var(--s3); }
       section{ padding: var(--s4) 0; }
-
       .heroCtas .btn{ width:100%; }
       .pill{ width:100%; justify-content:center; }
       .foot{ justify-content:center; text-align:center; }
-
-      /* Fix crowded mobile header: hide Copy phone in header, move to menu */
       #copyPhoneBtn{ display:none; }
-
       .actions{ gap: 8px; }
       .btn, .burger{ min-height: 40px; }
       .btn{ padding: 9px 10px; font-size: 11px; }
     }
 
-    /* Bottom-sheet date picker */
-      .sheetBackdrop{
-        position:fixed;
-        inset:0;
-        background: rgba(0,0,0,.38);
-        backdrop-filter: blur(2px);
-        z-index: 90;
-      }
-
-      .sheet{
-        position:fixed;
-        left:0; right:0; bottom:0;
-        z-index: 100;
-
-        padding: 12px 14px calc(14px + var(--safeBottom));
-        border-top-left-radius: 22px;
-        border-top-right-radius: 22px;
-        border:1px solid rgba(250,234,227,.16);
-        border-bottom: none;
-
-        background: linear-gradient(180deg, rgba(25,31,47,.92), rgba(25,31,47,.78));
-        box-shadow: 0 -18px 48px rgba(0,0,0,.45);
-      }
-
-      .sheetTop{
-        padding-bottom: 10px;
-        border-bottom: 1px solid rgba(250,234,227,.14);
-      }
-
-      .sheetHandle{
-        width: 56px; height: 5px;
-        margin: 4px auto 10px;
-        border-radius: 999px;
-        background: rgba(250,234,227,.20);
-      }
-
-      .sheetHead{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap: 10px;
-      }
-
-      .sheetTitle{
-        margin:0;
-        font-family:"Cinzel", ui-serif, serif;
-        letter-spacing:.08em;
-        text-transform:uppercase;
-        font-weight:500;
-        font-size: 13px;
-        color: rgba(250,234,227,.92);
-      }
-
-      .sheetClose{
-        min-width:44px; min-height:44px; /* target size */
-        border-radius: 999px;
-        border:1px solid rgba(250,234,227,.22);
-        background: rgba(250,234,227,.06);
-        color: rgba(250,234,227,.92);
-        cursor:pointer;
-      }
-
-      .sheetMeta{
-        margin-top: 6px;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap: 10px;
-      }
-
-      .sheetStep{
-        font-family:"Cinzel", ui-serif, serif;
-        letter-spacing:.08em;
-        text-transform:uppercase;
-        font-size: 11px;
-        color: rgba(250,234,227,.70);
-      }
-
-      .sheetValue{
-        font-family:"Cinzel", ui-serif, serif;
-        letter-spacing:.08em;
-        text-transform:uppercase;
-        font-size: 11px;
-        color: rgba(250,234,227,.86);
-        padding: 6px 10px;
-        border-radius: 999px;
-        border:1px solid rgba(250,234,227,.14);
-        background: rgba(25,31,47,.16);
-      }
-
-      .sheetBody{
-        padding-top: 12px;
-        max-height: min(52vh, 420px);
-        overflow:auto;
-      }
-
-      .dpGrid{
-        display:grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      .dpItem{
-        min-height: 44px; /* target size */
-        border-radius: 14px;
-        border:1px solid rgba(250,234,227,.16);
-        background: rgba(25,31,47,.16);
-        color: rgba(250,234,227,.92);
-        font-family:"Cinzel", ui-serif, serif;
-        letter-spacing:.08em;
-        text-transform:uppercase;
-        font-size: 12px;
-        cursor:pointer;
-      }
-
-      .dpItem:hover{
-        background: rgba(250,234,227,.08);
-      }
-
-      .dpItem[aria-selected="true"]{
-        border-color: rgba(246,190,173,.55);
-        background: linear-gradient(135deg, rgba(246,190,173,.18), rgba(186,45,61,.12));
-      }
-
-      .dpItem[disabled]{
-        opacity:.38;
-        cursor:not-allowed;
-        filter: grayscale(40%);
-      }
-
-      .dpList{
-        display:grid;
-        gap: 10px;
-      }
-
-      .sheetActions{
-        margin-top: 12px;
-        display:flex;
-        gap: 10px;
-      }
-
-      .sheetActions .btn{
-        flex: 1;
-      }
-
-      /* Only show on small screens (optional) */
-      @media (min-width: 700px){
-        .sheet, .sheetBackdrop { display:none !important; }
-      }
-
+    /* Bottom-sheet sequential date picker */
+    .sheetBackdrop{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.38);
+      backdrop-filter: blur(2px);
+      z-index: 90;
+    }
+    .sheet{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      z-index: 100;
+      padding: 12px 14px calc(14px + var(--safeBottom));
+      border-top-left-radius: 22px;
+      border-top-right-radius: 22px;
+      border:1px solid rgba(250,234,227,.16);
+      border-bottom: none;
+      background: linear-gradient(180deg, rgba(25,31,47,.92), rgba(25,31,47,.78));
+      box-shadow: 0 -18px 48px rgba(0,0,0,.45);
+    }
+    .sheetTop{
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(250,234,227,.14);
+    }
+    .sheetHandle{
+      width: 56px; height: 5px;
+      margin: 4px auto 10px;
+      border-radius: 999px;
+      background: rgba(250,234,227,.20);
+    }
+    .sheetHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .sheetTitle{
+      margin:0;
+      font-family:"Cinzel", ui-serif, serif;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-weight:500;
+      font-size: 13px;
+      color: rgba(250,234,227,.92);
+    }
+    .sheetClose{
+      min-width:44px; min-height:44px;
+      border-radius: 999px;
+      border:1px solid rgba(250,234,227,.22);
+      background: rgba(250,234,227,.06);
+      color: rgba(250,234,227,.92);
+      cursor:pointer;
+    }
+    .sheetMeta{
+      margin-top: 6px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .sheetStep{
+      font-family:"Cinzel", ui-serif, serif;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size: 11px;
+      color: rgba(250,234,227,.70);
+    }
+    .sheetValue{
+      font-family:"Cinzel", ui-serif, serif;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size: 11px;
+      color: rgba(250,234,227,.86);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(250,234,227,.14);
+      background: rgba(25,31,47,.16);
+    }
+    .sheetBody{
+      padding-top: 12px;
+      max-height: min(52vh, 420px);
+      overflow:auto;
+    }
+    .dpGrid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .dpItem{
+      min-height: 44px;
+      border-radius: 14px;
+      border:1px solid rgba(250,234,227,.16);
+      background: rgba(25,31,47,.16);
+      color: rgba(250,234,227,.92);
+      font-family:"Cinzel", ui-serif, serif;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size: 12px;
+      cursor:pointer;
+    }
+    .dpItem:hover{ background: rgba(250,234,227,.08); }
+    .dpItem[aria-selected="true"]{
+      border-color: rgba(246,190,173,.55);
+      background: linear-gradient(135deg, rgba(246,190,173,.18), rgba(186,45,61,.12));
+    }
+    .dpItem[disabled]{
+      opacity:.38;
+      cursor:not-allowed;
+      filter: grayscale(40%);
+    }
+    .dpList{ display:grid; gap: 10px; }
+    .sheetActions{ margin-top: 12px; display:flex; gap: 10px; }
+    .sheetActions .btn{ flex: 1; }
   </style>
 </head>
 
@@ -699,7 +609,6 @@
   </header>
 
   <main id="top">
-    <!-- HERO -->
     <section class="hero" aria-label="Hero">
       <div class="wrap">
         <div class="surface reveal">
@@ -742,7 +651,7 @@
 
                   <div style="height: var(--s2);"></div>
 
-                  <details>
+                  <details open>
                     <summary>
                       <span class="sumTitle">Quick service list</span>
                       <span class="chev">⌄</span>
@@ -753,13 +662,12 @@
                   </details>
                 </div>
               </div>
-            </div>
+            </div><!-- /grid -->
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
     <section id="about" aria-label="About">
       <div class="wrap">
         <div class="grid">
@@ -774,7 +682,6 @@
       </div>
     </section>
 
-    <!-- SERVICES (Accordion) -->
     <section id="services" aria-label="Services">
       <div class="wrap">
         <div class="grid">
@@ -823,15 +730,12 @@
             </details>
 
             <div style="height: var(--s2);"></div>
-            <p class="tiny">
-              Progressive disclosure keeps the page light: expand only what you need.
-            </p>
+            <p class="tiny">Progressive disclosure keeps the page light: expand only what you need.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CATEGORIES -->
     <section id="categories" aria-label="Service categories">
       <div class="wrap">
         <div class="grid">
@@ -882,7 +786,6 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" aria-label="Contact">
       <div class="wrap">
         <div class="grid contactGrid">
@@ -915,9 +818,6 @@
                 <span class="icon">IG</span> @vanahevents5
               </a>
             </div>
-            <p class="tiny" style="margin-top: var(--s2);">
-              
-            </p>
           </div>
 
           <div class="panel reveal right">
@@ -937,13 +837,15 @@
 
               <div style="display:grid; gap:6px;">
                 <label for="date">Event date</label>
-                <input id="date" name="date"
-                 placeholder="DD/MM/YYYY"
-                 readonly
-                 inputmode="none"
-                 aria-haspopup="dialog"
-                 aria-controls="dateSheet"
-                  />
+                <input
+                  id="date"
+                  name="date"
+                  placeholder="DD/MM/YYYY"
+                  readonly
+                  inputmode="none"
+                  aria-haspopup="dialog"
+                  aria-controls="dateSheet"
+                />
               </div>
 
               <div style="display:grid; gap:6px;">
@@ -973,12 +875,44 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </main>
 
+  <!-- Bottom sheet markup MUST be outside <script> -->
+  <div class="sheetBackdrop" id="dateBackdrop" hidden></div>
+
+  <section
+    class="sheet"
+    id="dateSheet"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dateSheetTitle"
+    hidden
+  >
+    <div class="sheetTop">
+      <div class="sheetHandle" aria-hidden="true"></div>
+
+      <div class="sheetHead">
+        <h3 id="dateSheetTitle" class="sheetTitle">Select event date</h3>
+        <button class="sheetClose" type="button" id="dateCloseBtn" aria-label="Close date picker">✕</button>
+      </div>
+
+      <div class="sheetMeta">
+        <div class="sheetStep" id="dateStepLabel">Step 1/3 • Day</div>
+        <div class="sheetValue" id="datePreview">--/--/----</div>
+      </div>
+    </div>
+
+    <div class="sheetBody" id="dateSheetBody"></div>
+
+    <div class="sheetActions">
+      <button class="btn" type="button" id="dateBackBtn" disabled>Back</button>
+      <button class="btn primary" type="button" id="dateDoneBtn" disabled>Done</button>
+    </div>
+  </section>
+
   <script>
     const PHONE = "+919902533437";
     const EMAIL = "vanahevents@gmail.com";
     const HANDLE = "@vanahevents5";
 
-    // Single source of truth (removes repeated markup)
     const NAV_ITEMS = [
       { href:"#about", label:"About" },
       { href:"#services", label:"We provide" },
@@ -1041,7 +975,6 @@
       }
     }
 
-    // Update CSS header height variable for accurate anchor offsets
     function setHeaderHeightVar(){
       const header = document.getElementById("siteHeader");
       if (!header) return;
@@ -1052,7 +985,6 @@
     window.addEventListener("load", setHeaderHeightVar, { passive: true });
     setHeaderHeightVar();
 
-    // Fix anchor jumping (accounts for sticky header)
     function scrollToHash(hash){
       const id = (hash || "").replace("#", "");
       const el = document.getElementById(id);
@@ -1065,7 +997,6 @@
       window.scrollTo({ top, behavior: "smooth" });
     }
 
-    // Event delegation so injected nav links work
     document.addEventListener("click", (e) => {
       const a = e.target.closest('a[href^="#"]');
       if (!a) return;
@@ -1078,25 +1009,24 @@
       scrollToHash(href);
     });
 
-    // Handle direct loads with a hash
     window.addEventListener("load", () => {
       if (location.hash) setTimeout(() => scrollToHash(location.hash), 50);
     });
 
-    // Mobile menu
     const burger = document.getElementById("burger");
     const mobileMenu = document.getElementById("mobileMenu");
     burger?.addEventListener("click", () => mobileMenu.classList.toggle("open"));
 
-    // Copy buttons
-    document.getElementById("copyPhoneBtn").addEventListener("click", () => copyToClipboard("+91 99025 33437", "Phone copied"));
-    document.getElementById("copyAllBtn").addEventListener("click", () => {
+    document.getElementById("copyPhoneBtn")?.addEventListener("click", () =>
+      copyToClipboard("+91 99025 33437", "Phone copied")
+    );
+
+    document.getElementById("copyAllBtn")?.addEventListener("click", () => {
       const all = `Vanahara Events\nPhone: +91 99025 33437\nInstagram: ${HANDLE}\nEmail: ${EMAIL}`;
       copyToClipboard(all, "Details copied");
     });
 
-    // WhatsApp form
-    document.getElementById("enquiryForm").addEventListener("submit", (e) => {
+    document.getElementById("enquiryForm")?.addEventListener("submit", (e) => {
       e.preventDefault();
       const name = (document.getElementById("name").value || "").trim();
       const eventType = (document.getElementById("event").value || "").trim();
@@ -1115,7 +1045,6 @@
       window.open(wa, "_blank", "noopener,noreferrer");
     });
 
-    // Reveal on scroll
     const revealEls = [...document.querySelectorAll(".reveal")];
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1127,12 +1056,10 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => io.observe(el));
 
-    // Render repeated UI from one place
     window.addEventListener("load", () => {
       renderLinks(document.getElementById("navlinks"));
       renderLinks(document.getElementById("mobileMenu"));
 
-      // Add mobile-only Copy phone into the burger menu
       const mm = document.getElementById("mobileMenu");
       if (mm && !document.getElementById("copyPhoneBtnMobile")){
         const btn = document.createElement("button");
@@ -1154,6 +1081,7 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    // Sequential bottom-sheet date picker
     (function(){
       const dateInput = document.getElementById("date");
       const sheet = document.getElementById("dateSheet");
@@ -1165,29 +1093,26 @@
       const stepLabel = document.getElementById("dateStepLabel");
       const preview = document.getElementById("datePreview");
 
-      if (!dateInput || !sheet || !backdrop || !body) return;
+      if (!dateInput || !sheet || !backdrop || !body || !closeBtn || !backBtn || !doneBtn || !stepLabel || !preview) return;
 
-      // Mobile-first: only activate on small screens
+      // Mobile-first switch:
+      // - Keep TRUE for production (only show on phones)
+      // - Set FALSE while testing on desktop
+      const MOBILE_ONLY = true;
+
       const isMobile = () => window.matchMedia("(max-width: 700px)").matches;
 
       const pad2 = (n) => String(n).padStart(2, "0");
-      const monthNames = [
-        "01","02","03","04","05","06","07","08","09","10","11","12"
-      ];
+      const monthNames = ["01","02","03","04","05","06","07","08","09","10","11","12"];
 
-      const state = {
-        step: "day",        // "day" | "month" | "year"
-        day: null,
-        month: null,
-        year: null,
-      };
+      const state = { step: "day", day: null, month: null, year: null };
 
       const YEAR_MIN = new Date().getFullYear();
       const YEAR_MAX = YEAR_MIN + 5;
 
       let lastActive = null;
 
-      function daysInMonth(year, month){ // month: 1-12
+      function daysInMonth(year, month){
         return new Date(year, month, 0).getDate();
       }
 
@@ -1212,9 +1137,7 @@
 
         const items = Array.from({length: 31}, (_, i) => i + 1).map(d => {
           const selected = state.day === d;
-          return `<button class="dpItem" type="button" data-day="${d}" aria-selected="${selected}">
-            ${pad2(d)}
-          </button>`;
+          return `<button class="dpItem" type="button" data-day="${d}" aria-selected="${selected}">${pad2(d)}</button>`;
         }).join("");
 
         body.innerHTML = `<div class="dpGrid" role="list">${items}</div>`;
@@ -1226,21 +1149,14 @@
         backBtn.disabled = false;
         doneBtn.disabled = true;
 
-        // Month disabling based on selected day (and year if already chosen)
-        // If year not chosen yet, treat Feb as 29 max (best-case) until year picked.
-        const assumedYear = state.year || 2024; // leap-ish safe assumption for Feb logic
+        const assumedYear = state.year || 2024; // leap-safe assumption until year is chosen
         const items = monthNames.map((mStr, idx) => {
           const m = idx + 1;
           const max = daysInMonth(assumedYear, m);
           const disabled = state.day && state.day > max;
           const selected = state.month === m;
 
-          // Requirement: if day=31, hide/disable months with 30 days + Feb
-          return `<button class="dpItem" type="button" data-month="${m}"
-            ${disabled ? "disabled" : ""}
-            aria-selected="${selected}">
-            ${mStr}
-          </button>`;
+          return `<button class="dpItem" type="button" data-month="${m}" ${disabled ? "disabled" : ""} aria-selected="${selected}">${mStr}</button>`;
         }).join("");
 
         body.innerHTML = `<div class="dpGrid" role="list">${items}</div>`;
@@ -1256,9 +1172,7 @@
 
         const items = years.map(y => {
           const selected = state.year === y;
-          return `<button class="dpItem" type="button" data-year="${y}" aria-selected="${selected}">
-            ${y}
-          </button>`;
+          return `<button class="dpItem" type="button" data-year="${y}" aria-selected="${selected}">${y}</button>`;
         }).join("");
 
         body.innerHTML = `<div class="dpList" role="list">${items}</div>`;
@@ -1273,16 +1187,15 @@
       }
 
       function openSheet(){
-        if (!isMobile()) return;
+        if (MOBILE_ONLY && !isMobile()) return;
 
         lastActive = document.activeElement;
         backdrop.hidden = false;
         sheet.hidden = false;
 
-        // Start at day step
         state.step = "day";
         render();
-        // focus first actionable element
+
         closeBtn.focus();
         document.body.style.overflow = "hidden";
       }
@@ -1294,7 +1207,6 @@
         if (lastActive && typeof lastActive.focus === "function") lastActive.focus();
       }
 
-      // Simple focus trap for modal behavior [web:182]
       function onKeyDown(e){
         if (sheet.hidden) return;
 
@@ -1321,7 +1233,6 @@
         }
       }
 
-      // Click handlers
       dateInput.addEventListener("click", openSheet);
       dateInput.addEventListener("focus", openSheet);
 
@@ -1344,9 +1255,7 @@
       doneBtn.addEventListener("click", () => {
         if (!(state.day && state.month && state.year)) return;
 
-        // Validate once more (handles Feb/30-day months)
         if (state.day > daysInMonth(state.year, state.month)){
-          // push user back to month step if invalid
           state.step = "month";
           state.month = null;
           render();
@@ -1357,7 +1266,6 @@
         closeSheet();
       });
 
-      // Delegated selection inside body
       body.addEventListener("click", (e) => {
         const btn = e.target.closest("button");
         if (!btn || btn.disabled) return;
@@ -1368,7 +1276,6 @@
           state.year = null;
           state.step = "month";
           render();
-          // focus first month button
           body.querySelector("button.dpItem:not([disabled])")?.focus();
           return;
         }
@@ -1385,55 +1292,20 @@
         if (btn.dataset.year){
           state.year = Number(btn.dataset.year);
 
-          // If chosen year makes current day/month invalid, force back to month
           if (state.day && state.month && state.day > daysInMonth(state.year, state.month)){
             state.step = "month";
             state.month = null;
             state.year = null;
+            render();
+            return;
           }
 
           doneBtn.disabled = !(state.day && state.month && state.year);
           setPreview();
           renderYear();
-          return;
         }
       });
-
     })();
-
   </script>
-
-  <div class="sheetBackdrop" id="dateBackdrop" hidden></div>
-
-<section
-  class="sheet"
-  id="dateSheet"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="dateSheetTitle"
-  hidden
->
-  <div class="sheetTop">
-    <div class="sheetHandle" aria-hidden="true"></div>
-
-    <div class="sheetHead">
-      <h3 id="dateSheetTitle" class="sheetTitle">Select event date</h3>
-      <button class="sheetClose" type="button" id="dateCloseBtn" aria-label="Close date picker">✕</button>
-    </div>
-
-    <div class="sheetMeta">
-      <div class="sheetStep" id="dateStepLabel">Step 1/3 • Day</div>
-      <div class="sheetValue" id="datePreview">--/--/----</div>
-    </div>
-  </div>
-
-  <div class="sheetBody" id="dateSheetBody"></div>
-
-  <div class="sheetActions">
-    <button class="btn" type="button" id="dateBackBtn" disabled>Back</button>
-    <button class="btn primary" type="button" id="dateDoneBtn" disabled>Done</button>
-  </div>
-</section>
-
 </body>
 </html>
