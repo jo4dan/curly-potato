@@ -471,12 +471,14 @@
       inset:0;
       background: rgba(0,0,0,.38);
       backdrop-filter: blur(2px);
-      z-index: 90;
+      z-index: 9990;
+      pointer-events:auto;
     }
     .sheet{
       position:fixed;
       left:0; right:0; bottom:0;
-      z-index: 100;
+      z-index: 10000;
+      pointer-events:auto;
       padding: 12px 14px calc(14px + var(--safeBottom));
       border-top-left-radius: 22px;
       border-top-right-radius: 22px;
@@ -875,7 +877,6 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </main>
 
-  <!-- Bottom sheet markup MUST be outside <script> -->
   <div class="sheetBackdrop" id="dateBackdrop" hidden></div>
 
   <section
@@ -1081,7 +1082,6 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Sequential bottom-sheet date picker
     (function(){
       const dateInput = document.getElementById("date");
       const sheet = document.getElementById("dateSheet");
@@ -1092,25 +1092,22 @@
       const doneBtn = document.getElementById("dateDoneBtn");
       const stepLabel = document.getElementById("dateStepLabel");
       const preview = document.getElementById("datePreview");
+      const msgField = document.getElementById("msg"); // next field to focus
 
       if (!dateInput || !sheet || !backdrop || !body || !closeBtn || !backBtn || !doneBtn || !stepLabel || !preview) return;
 
-      // Mobile-first switch:
-      // - Keep TRUE for production (only show on phones)
-      // - Set FALSE while testing on desktop
-      const MOBILE_ONLY = true;
-
+      const MOBILE_ONLY = false;
       const isMobile = () => window.matchMedia("(max-width: 700px)").matches;
 
       const pad2 = (n) => String(n).padStart(2, "0");
       const monthNames = ["01","02","03","04","05","06","07","08","09","10","11","12"];
 
       const state = { step: "day", day: null, month: null, year: null };
-
       const YEAR_MIN = new Date().getFullYear();
       const YEAR_MAX = YEAR_MIN + 5;
 
       let lastActive = null;
+      let ignoreNextOpen = false;
 
       function daysInMonth(year, month){
         return new Date(year, month, 0).getDate();
@@ -1149,7 +1146,7 @@
         backBtn.disabled = false;
         doneBtn.disabled = true;
 
-        const assumedYear = state.year || 2024; // leap-safe assumption until year is chosen
+        const assumedYear = state.year || 2024;
         const items = monthNames.map((mStr, idx) => {
           const m = idx + 1;
           const max = daysInMonth(assumedYear, m);
@@ -1187,6 +1184,7 @@
       }
 
       function openSheet(){
+        if (ignoreNextOpen) { ignoreNextOpen = false; return; }
         if (MOBILE_ONLY && !isMobile()) return;
 
         lastActive = document.activeElement;
@@ -1200,11 +1198,21 @@
         document.body.style.overflow = "hidden";
       }
 
-      function closeSheet(){
+      function closeSheet({ returnFocus = true } = {}){
         sheet.hidden = true;
         backdrop.hidden = true;
         document.body.style.overflow = "";
-        if (lastActive && typeof lastActive.focus === "function") lastActive.focus();
+
+        if (returnFocus && lastActive && typeof lastActive.focus === "function"){
+          // prevent immediate reopen when focus returns to #date
+          ignoreNextOpen = true;
+          lastActive.focus();
+        }
+      }
+
+      function focusNextField(){
+        // Move user forward in the form (prevents date re-open loop too)
+        if (msgField && typeof msgField.focus === "function") msgField.focus();
       }
 
       function onKeyDown(e){
@@ -1233,11 +1241,11 @@
         }
       }
 
+      // OPEN ONLY ON CLICK (NOT on focus) to avoid reopen loop
       dateInput.addEventListener("click", openSheet);
-      dateInput.addEventListener("focus", openSheet);
 
-      closeBtn.addEventListener("click", closeSheet);
-      backdrop.addEventListener("click", closeSheet);
+      closeBtn.addEventListener("click", () => closeSheet());
+      backdrop.addEventListener("click", () => closeSheet());
       document.addEventListener("keydown", onKeyDown);
 
       backBtn.addEventListener("click", () => {
@@ -1263,7 +1271,10 @@
         }
 
         dateInput.value = `${pad2(state.day)}/${pad2(state.month)}/${state.year}`;
-        closeSheet();
+
+        // Close WITHOUT returning focus to #date, then focus the next field.
+        closeSheet({ returnFocus: false });
+        focusNextField();
       });
 
       body.addEventListener("click", (e) => {
@@ -1300,12 +1311,16 @@
             return;
           }
 
-          doneBtn.disabled = !(state.day && state.month && state.year);
+          doneBtn.disabled = false;
           setPreview();
-          renderYear();
+
+          body.querySelectorAll("button[data-year]").forEach(b => b.setAttribute("aria-selected", "false"));
+          btn.setAttribute("aria-selected", "true");
+          return;
         }
       });
     })();
   </script>
 </body>
 </html>
+
