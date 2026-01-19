@@ -2,1325 +2,626 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#191f2f" />
-  <title>Vanahara Events</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Vanahara Events | Artisan Styling</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --navy-900:#191f2f;
-      --navy-700:#343f5c;
-      --wine-700:#8d2a41;
-      --red-600:#ba2d3d;
-      --rose-400:#d9726f;
-      --peach-200:#f6bead;
+    /* --- COLOR TOKENS & VARIABLES --- */
+    :root {
+      /* Palette */
+      --teal: #0F4F56;
+      --olive: #6A7A2A;
+      --maroon: #8B2E3B;
+      --rose: #E7B5B0;
+      --ochre: #C99D2D;
+      --gold-light: #e9c47a;
+      --gold-dark: #b8860b;
+      --cream: #F6EDE6;
+      --paper: #fdfbf7;
+      
+      /* Typography */
+      --font-head: "Playfair Display", serif;
+      --font-body: "Inter", sans-serif;
 
-      --text:#faeae3;
-      --muted:rgba(250,234,227,.72);
-      --line:rgba(250,234,227,.14);
-
-      --s1:8px;  --s2:16px; --s3:24px; --s4:32px;
-      --s5:40px; --s6:48px; --s7:56px; --s8:64px;
-
-      --radius: 18px;
-      --radius-sm: 14px;
-      --max: 1120px;
-
-      --safeTop: env(safe-area-inset-top, 0px);
-      --safeBottom: env(safe-area-inset-bottom, 0px);
-
-      --headerH: 72px;
-      --scrollGap: 14px;
-
-      --logo-filter: brightness(0) saturate(100%)
-                     invert(87%) sepia(16%) saturate(900%)
-                     hue-rotate(325deg) brightness(96%) contrast(88%);
+      /* Spacing */
+      --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 64px;
+      
+      /* UI Elements */
+      --border-radius-frame: 12px;
+      --border-radius-pill: 999px;
     }
 
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
-    body{
-      margin:0;
-      color:var(--text);
-      font-family: "Cormorant Garamond", ui-serif, Georgia, serif;
-      -webkit-text-size-adjust: 100%;
-      overflow-x:hidden;
-      padding-bottom: var(--safeBottom);
-      background:
-        radial-gradient(1100px 700px at 82% 12%, rgba(246,190,173,.95), rgba(246,190,173,0) 56%),
-        radial-gradient(900px 700px at 56% 38%, rgba(186,45,61,.82), rgba(186,45,61,0) 62%),
-        radial-gradient(900px 700px at 16% 78%, rgba(52,63,92,.92), rgba(25,31,47,.96) 64%),
-        linear-gradient(135deg, var(--navy-900), var(--red-600), var(--peach-200));
-      min-height:100vh;
+    /* --- BASE & RESET --- */
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      background-color: var(--cream);
+      color: var(--teal);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    body:before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-        radial-gradient(900px 600px at 35% 25%, rgba(141,42,65,.25), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.30));
-      pointer-events:none;
-      z-index:-1;
+    /* Paper Texture Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: multiply;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ width:min(var(--max), calc(100% - 2*var(--s3))); margin:0 auto; }
+    a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    img { max-width: 100%; display: block; }
 
-    .ui{
-      font-family:"Cinzel", ui-serif, serif;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size:12px;
-      color:rgba(250,234,227,.88);
-    }
-
-    .logoImg{
-      display:block;
-      height: 28px;
-      width:auto;
-      object-fit: contain;
-      opacity: .92;
-      filter: drop-shadow(0 10px 26px rgba(0,0,0,.28));
+    /* --- TYPOGRAPHY --- */
+    h1, h2, h3 {
+      font-family: var(--font-head);
+      font-weight: 600;
+      color: var(--maroon);
+      margin-top: 0;
     }
 
-    .heroLogo{
-      width: min(420px, 100%);
-      margin: 0 0 var(--s2);
-      opacity: .92;
-      filter: drop-shadow(0 14px 34px rgba(0,0,0,.32));
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--s3);
     }
 
-    .sr-only{
-      position:absolute !important;
-      width:1px; height:1px;
-      padding:0; margin:-1px;
-      overflow:hidden; clip:rect(0,0,0,0);
-      white-space:nowrap; border:0;
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      margin-bottom: var(--s3);
+      position: relative;
+      display: inline-block;
     }
-
-    header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      padding-top: var(--safeTop);
-      backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(25,31,47,.66), rgba(25,31,47,.18));
-      border-bottom:1px solid var(--line);
-    }
-
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: var(--s2);
-      padding: var(--s2) 0;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 0;
-      white-space:nowrap;
-      line-height:1;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(250,234,227,.12);
-      background: rgba(25,31,47,.14);
-    }
-
-    .navlinks{
-      display:flex;
-      align-items:center;
-      gap: var(--s2);
-    }
-    .navlinks a{
-      padding: 10px 10px;
-      border-radius: 999px;
-      transition: background .18s ease, transform .18s ease;
-    }
-    .navlinks a:hover{
-      background: rgba(250,234,227,.10);
-      transform: translateY(-1px);
-    }
-
-    .actions{ display:flex; align-items:center; gap: 10px; }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      min-height:44px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(250,234,227,.22);
-      background: rgba(25,31,47,.18);
-      color: rgba(250,234,227,.92);
-      font-family:"Cinzel", ui-serif, serif;
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      cursor:pointer;
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(250,234,227,.40);
-      background: rgba(25,31,47,.22);
-    }
-    .btn.primary{
-      border-color: rgba(246,190,173,.45);
-      background: linear-gradient(135deg, rgba(246,190,173,.18), rgba(186,45,61,.12));
-    }
-
-    .burger{
-      display:none;
-      width:44px;
-      height:44px;
-      border-radius:999px;
-      border:1px solid rgba(250,234,227,.22);
-      background: rgba(25,31,47,.18);
-      color: rgba(250,234,227,.92);
-      cursor:pointer;
-      font-size:20px;
-      line-height:1;
-    }
-
-    .mobileMenu{ display:none; padding: 0 0 var(--s2); }
-    .mobileMenu.open{ display:block; }
-
-    .mobileMenu a,
-    .mobileMenu .menuItem{
-      display:block;
-      width:100%;
-      text-align:left;
-      padding: 12px 12px;
-      border-radius: var(--radius-sm);
-      border:1px solid rgba(250,234,227,.14);
-      background: rgba(25,31,47,.16);
-      margin-top: 10px;
-      color: rgba(250,234,227,.92);
-      font-family:"Cinzel", ui-serif, serif;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size:12px;
-      cursor:pointer;
-    }
-
-    main{ padding-bottom: var(--s4); }
-    section{
-      padding: var(--s6) 0;
-      scroll-margin-top: calc(var(--headerH) + var(--scrollGap));
-    }
-
-    .surface{
-      border-radius: var(--radius);
-      border:1px solid rgba(250,234,227,.14);
-      background: linear-gradient(180deg, rgba(25,31,47,.38), rgba(25,31,47,.16));
-      box-shadow: 0 14px 40px rgba(0,0,0,.26);
-      overflow:hidden;
-    }
-
-    .grid{
-      display:grid;
-      gap: var(--s2);
-      grid-template-columns: repeat(12, 1fr);
-    }
-
-    .panel{
-      border-radius: var(--radius);
-      border:1px solid rgba(250,234,227,.12);
-      background: rgba(25,31,47,.16);
-      padding: var(--s3);
-      min-width:0;
-    }
-    .panel.soft{
-      background: linear-gradient(135deg, rgba(246,190,173,.09), rgba(186,45,61,.10));
-      border-color: rgba(250,234,227,.14);
-    }
-
-    h1{
-      margin:0 0 var(--s2);
-      font-family:"Cinzel", ui-serif, serif;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-weight:500;
-      font-size: clamp(2.0rem, 3.2vw, 3.0rem);
-      line-height:1.10;
-    }
-    h2{
-      margin:0 0 var(--s2);
-      font-family:"Cinzel", ui-serif, serif;
-      font-weight:500;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size: clamp(1.05rem, 1.3vw, 1.25rem);
-    }
-
-    p{
-      margin:0;
-      color: rgba(250,234,227,.86);
-      font-size: 16px;
-      line-height: 1.6;
-    }
-    .lede{
-      font-size: clamp(1.0rem, 1.35vw, 1.18rem);
-      color: rgba(250,234,227,.88);
-      line-height: 1.55;
-    }
-    .tiny{
-      font-size: 13px;
-      color: rgba(250,234,227,.70);
-      line-height: 1.5;
-    }
-
-    .hero{ padding-top: var(--s5); }
-    .heroInner{ padding: var(--s4); }
-    .heroGrid{ align-items:start; }
-    .heroLeft{ grid-column: span 7; }
-    .heroRight{ grid-column: span 5; }
-
-    .chips{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: var(--s2); }
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height: 36px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(250,234,227,.14);
-      background: rgba(25,31,47,.16);
-      color: rgba(250,234,227,.88);
-      font-size: 13px;
-    }
-    .heroCtas{ display:flex; gap:10px; flex-wrap:wrap; margin-top: var(--s3); }
-
-    details{
-      border:1px solid rgba(250,234,227,.12);
-      border-radius: var(--radius-sm);
-      background: rgba(25,31,47,.14);
-      overflow:hidden;
-    }
-    details + details{ margin-top: 10px; }
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding: 14px 14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    summary::-webkit-details-marker{ display:none; }
-
-    .sumTitle{
-      font-family:"Cinzel", ui-serif, serif;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size:12px;
-      color: rgba(250,234,227,.90);
-    }
-
-    .chev{
-      width:28px; height:28px;
-      border-radius:999px;
-      border:1px solid rgba(250,234,227,.16);
-      background: rgba(250,234,227,.06);
-      display:grid;
-      place-items:center;
-      transition: transform .18s ease;
-      flex: 0 0 auto;
-      font-size:14px;
-    }
-    details[open] .chev{ transform: rotate(180deg); }
-
-    .detailsBody{
-      padding: 0 14px 14px;
-      color: rgba(250,234,227,.86);
-      font-size: 16px;
-      line-height: 1.55;
-    }
-    .bullets{ margin: 10px 0 0; padding: 0 0 0 18px; }
-    .bullets li{ margin: 6px 0; }
-
-    .contactGrid .panel{ padding: var(--s3); }
-    .contactGrid .left{ grid-column: span 6; }
-    .contactGrid .mid{ grid-column: span 3; }
-    .contactGrid .right{ grid-column: span 3; }
-
-    .pillRow{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: var(--s2); }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      min-height:44px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(250,234,227,.16);
-      background: rgba(25,31,47,.16);
+    
+    /* Decorative flourish under headers */
+    h2::after {
+      content: "✦";
+      display: block;
+      color: var(--ochre);
       font-size: 14px;
-      color: rgba(250,234,227,.90);
-    }
-    .icon{
-      width:26px; height:26px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      border:1px solid rgba(250,234,227,.14);
-      background: rgba(250,234,227,.06);
-      font-family:"Cinzel", ui-serif, serif;
-      font-size:11px;
-      letter-spacing:.04em;
+      margin-top: 8px;
+      text-align: center;
+      opacity: 0.7;
     }
 
-    .form{ display:grid; gap: 10px; margin-top: var(--s2); }
-    label{
-      font-family:"Cinzel", ui-serif, serif;
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color: rgba(250,234,227,.78);
+    p { margin-bottom: var(--s3); color: #2c3e40; }
+    .subtitle {
+      font-family: var(--font-head);
+      color: var(--olive);
+      font-style: italic;
+      font-size: 1.1rem;
+      margin-bottom: var(--s2);
+      display: block;
     }
-    input, textarea{
-      width:100%;
-      min-height:44px;
-      padding: 10px 12px;
-      border-radius: var(--radius-sm);
-      border:1px solid rgba(250,234,227,.16);
-      background: rgba(25,31,47,.18);
-      color: rgba(250,234,227,.94);
-      outline:none;
-      font-family: "Cormorant Garamond", ui-serif, Georgia, serif;
-      font-size: 16px;
-    }
-    textarea{ min-height: 96px; resize:vertical; }
-    input:focus, textarea:focus{ border-color: rgba(246,190,173,.45); }
 
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom: calc(14px + var(--safeBottom));
-      transform:translateX(-50%);
-      max-width: min(92vw, 520px);
-      text-align:center;
-      padding: 10px 12px;
+    /* --- GOLD FOIL UTILS --- */
+    .gold-border {
+      position: relative;
+      border: 1px solid transparent; /* Fallback */
+      background-image: linear-gradient(var(--paper), var(--paper)), 
+                        linear-gradient(135deg, var(--gold-light), var(--ochre), var(--gold-dark), var(--gold-light));
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+      box-shadow: 0 4px 12px rgba(139, 46, 59, 0.1);
+    }
+
+    .gold-text {
+      background: linear-gradient(135deg, #b8860b, #e9c47a, #b8860b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    /* --- LAYOUT GRID (The Folio) --- */
+    .folio-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--s4);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s5);
+      position: relative;
+      border-left: 1px solid rgba(201, 157, 45, 0.2);
+      border-right: 1px solid rgba(201, 157, 45, 0.2);
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    }
+
+    @media (min-width: 900px) {
+      .folio-container {
+        grid-template-columns: 1.2fr 0.8fr;
+        padding: var(--s6);
+        min-height: 100vh;
+      }
+      .sticky-side {
+        position: sticky;
+        top: var(--s4);
+        height: fit-content;
+      }
+    }
+
+    /* --- HERO SECTION (The Miniature Frame) --- */
+    .hero-frame {
+      position: relative;
+      padding: 10px;
+      border-radius: 45% 45% 0 0 / 40% 40% 0 0; /* Arch shape */
+      background: linear-gradient(135deg, var(--ochre), var(--gold-light));
+      box-shadow: 0 10px 30px rgba(15, 79, 86, 0.2);
+      margin-bottom: var(--s4);
+      overflow: hidden;
+    }
+    
+    .hero-frame-inner {
+      background: var(--teal);
+      border-radius: 43% 43% 0 0 / 38% 38% 0 0;
+      padding: 4px; /* Inner stroke */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 42% 42% 0 0 / 37% 37% 0 0;
+      opacity: 0.9;
+      mix-blend-mode: luminosity; 
+      transition: transform 3s ease-out;
+    }
+    
+    .hero-frame:hover .hero-image {
+      transform: scale(1.02);
+      mix-blend-mode: normal;
+    }
+
+    /* Ornamental Border SVG (CSS Mask/Border Image substitute) */
+    .ornamental-divider {
+      height: 20px;
+      width: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='10' viewBox='0 0 40 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 9C15 9 10 5 0 5V6C10 6 15 10 20 10C25 10 30 6 40 6V5C30 5 25 9 20 9Z' fill='%23C99D2D' fill-opacity='0.6'/%3E%3C/svg%3E");
+      margin: var(--s4) 0;
+      opacity: 0.8;
+    }
+
+    /* --- COMPONENTS --- */
+
+    /* Nav */
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--s3) 0;
+      border-bottom: 1px solid rgba(201, 157, 45, 0.3);
+      margin-bottom: var(--s5);
+    }
+    
+    .logo-text {
+      font-family: var(--font-head);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--s3);
+    }
+    
+    .nav-links a {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; width: 0%; height: 1px;
+      background: var(--maroon);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Cards / Frosted Panels */
+    .card {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      padding: var(--s3);
+      border: 1px solid rgba(201, 157, 45, 0.3);
+      border-radius: 8px;
+      margin-bottom: var(--s3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    /* Filigree Corners (Pseudo-elements) */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 4px; left: 4px;
+      width: 10px; height: 10px;
+      border-top: 1px solid var(--ochre);
+      border-left: 1px solid var(--ochre);
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      bottom: 4px; right: 4px;
+      width: 10px; height: 10px;
+      border-bottom: 1px solid var(--ochre);
+      border-right: 1px solid var(--ochre);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(15, 79, 86, 0.08);
+      border-color: var(--ochre);
+    }
+
+    /* Details / Accordion */
+    details {
+      margin-bottom: var(--s2);
+      border-bottom: 1px dashed rgba(15, 79, 86, 0.2);
+      padding-bottom: var(--s2);
+    }
+    
+    summary {
+      cursor: pointer;
+      font-family: var(--font-head);
+      color: var(--teal);
+      font-weight: 600;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    summary::-webkit-details-marker { display: none; }
+    
+    summary::after {
+      content: "+";
+      color: var(--ochre);
+      font-size: 1.2rem;
+    }
+    details[open] summary::after { content: "−"; }
+
+    .details-content {
+      padding-top: var(--s2);
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--cream);
+      border: 1px solid var(--ochre);
+      color: var(--maroon);
+      font-family: var(--font-head);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.8rem;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 0%; height: 100%;
+      background: var(--maroon);
+      z-index: -1;
+      transition: width 0.3s ease;
+    }
+
+    .btn:hover {
+      color: var(--cream);
+      border-color: var(--maroon);
+    }
+    .btn:hover::before { width: 100%; }
+    
+    .btn-primary {
+      background: var(--maroon);
+      color: var(--cream);
+      border-color: var(--maroon);
+    }
+    .btn-primary:hover {
+      background: var(--teal);
+      border-color: var(--teal);
+    }
+
+    /* Form */
+    input, textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--ochre);
+      padding: 12px 0;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      color: var(--teal);
+      margin-bottom: var(--s3);
+      border-radius: 0;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-bottom: 2px solid var(--maroon);
+    }
+    input::placeholder, textarea::placeholder {
+      color: rgba(106, 122, 42, 0.6); /* Muted Olive */
+      font-style: italic;
+    }
+
+    /* Pills */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(231, 181, 176, 0.2); /* Rose tint */
+      color: var(--maroon);
       border-radius: 999px;
-      background: rgba(25,31,47,.82);
-      border:1px solid rgba(250,234,227,.18);
-      color: rgba(250,234,227,.92);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.35);
-      opacity:0;
-      pointer-events:none;
-      transition: opacity .2s ease, transform .2s ease;
-      font-size:14px;
-    }
-    .toast.show{ opacity:1; transform:translateX(-50%) translateY(-2px); }
-
-    footer{
-      padding: var(--s4) 0 calc(var(--s5) + var(--safeBottom));
-      color: rgba(250,234,227,.72);
-      border-top: 1px solid rgba(250,234,227,.12);
-    }
-    .foot{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(139, 46, 59, 0.2);
     }
 
-    .reveal{ opacity:0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
-    .reveal.in{ opacity:1; transform:none; }
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 20px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--teal);
+      color: var(--cream);
+      padding: 12px 24px;
+      font-family: var(--font-head);
+      border: 1px solid var(--ochre);
+      opacity: 0;
+      transition: 0.4s ease;
+      z-index: 1000;
+    }
+    .toast.active { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    @media (max-width: 920px){
-      .navlinks{ display:none; }
-      .burger{ display:inline-grid; place-items:center; }
-      .heroLeft, .heroRight{ grid-column: span 12; }
-      section{ padding: var(--s5) 0; }
-      .contactGrid .left, .contactGrid .mid, .contactGrid .right{ grid-column: span 12; }
+    /* Helper Classes */
+    .text-center { text-align: center; }
+    .mt-4 { margin-top: var(--s4); }
+    
+    /* Decorative Circle (Sun/Moon motif) */
+    .sun-motif {
+      width: 60px; height: 60px;
+      background: radial-gradient(circle, var(--ochre) 0%, transparent 70%);
+      opacity: 0.4;
+      position: absolute;
+      top: -30px; right: -30px;
+      z-index: -1;
     }
 
-    @media (max-width: 560px){
-      .wrap{ width: min(var(--max), calc(100% - 2*var(--s2))); }
-      .heroInner{ padding: var(--s3); }
-      section{ padding: var(--s4) 0; }
-      .heroCtas .btn{ width:100%; }
-      .pill{ width:100%; justify-content:center; }
-      .foot{ justify-content:center; text-align:center; }
-      #copyPhoneBtn{ display:none; }
-      .actions{ gap: 8px; }
-      .btn, .burger{ min-height: 40px; }
-      .btn{ padding: 9px 10px; font-size: 11px; }
-    }
-
-    /* Bottom-sheet sequential date picker */
-    .sheetBackdrop{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.38);
-      backdrop-filter: blur(2px);
-      z-index: 9990;
-      pointer-events:auto;
-    }
-    .sheet{
-      position:fixed;
-      left:0; right:0; bottom:0;
-      z-index: 10000;
-      pointer-events:auto;
-      padding: 12px 14px calc(14px + var(--safeBottom));
-      border-top-left-radius: 22px;
-      border-top-right-radius: 22px;
-      border:1px solid rgba(250,234,227,.16);
-      border-bottom: none;
-      background: linear-gradient(180deg, rgba(25,31,47,.92), rgba(25,31,47,.78));
-      box-shadow: 0 -18px 48px rgba(0,0,0,.45);
-    }
-    .sheetTop{
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(250,234,227,.14);
-    }
-    .sheetHandle{
-      width: 56px; height: 5px;
-      margin: 4px auto 10px;
-      border-radius: 999px;
-      background: rgba(250,234,227,.20);
-    }
-    .sheetHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .sheetTitle{
-      margin:0;
-      font-family:"Cinzel", ui-serif, serif;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-weight:500;
-      font-size: 13px;
-      color: rgba(250,234,227,.92);
-    }
-    .sheetClose{
-      min-width:44px; min-height:44px;
-      border-radius: 999px;
-      border:1px solid rgba(250,234,227,.22);
-      background: rgba(250,234,227,.06);
-      color: rgba(250,234,227,.92);
-      cursor:pointer;
-    }
-    .sheetMeta{
-      margin-top: 6px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .sheetStep{
-      font-family:"Cinzel", ui-serif, serif;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size: 11px;
-      color: rgba(250,234,227,.70);
-    }
-    .sheetValue{
-      font-family:"Cinzel", ui-serif, serif;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size: 11px;
-      color: rgba(250,234,227,.86);
-      padding: 6px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(250,234,227,.14);
-      background: rgba(25,31,47,.16);
-    }
-    .sheetBody{
-      padding-top: 12px;
-      max-height: min(52vh, 420px);
-      overflow:auto;
-    }
-    .dpGrid{
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .dpItem{
-      min-height: 44px;
-      border-radius: 14px;
-      border:1px solid rgba(250,234,227,.16);
-      background: rgba(25,31,47,.16);
-      color: rgba(250,234,227,.92);
-      font-family:"Cinzel", ui-serif, serif;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size: 12px;
-      cursor:pointer;
-    }
-    .dpItem:hover{ background: rgba(250,234,227,.08); }
-    .dpItem[aria-selected="true"]{
-      border-color: rgba(246,190,173,.55);
-      background: linear-gradient(135deg, rgba(246,190,173,.18), rgba(186,45,61,.12));
-    }
-    .dpItem[disabled]{
-      opacity:.38;
-      cursor:not-allowed;
-      filter: grayscale(40%);
-    }
-    .dpList{ display:grid; gap: 10px; }
-    .sheetActions{ margin-top: 12px; display:flex; gap: 10px; }
-    .sheetActions .btn{ flex: 1; }
   </style>
 </head>
 
 <body>
-  <header id="siteHeader">
-    <div class="wrap">
-      <div class="nav">
-        <a class="brand" href="#top" aria-label="Home">
-          <img
-            class="logoImg"
-            src="https://gist.githubusercontent.com/jo4dan/01832f40330aa25a363673e9e99b03da/raw/22e8d3298449c5bf779d73b5c83e1d545efb3bd2/vanaharalogo.svg"
-            alt="Vanahara Events"
-            loading="eager"
-            decoding="async"
-          />
-        </a>
 
-        <nav class="navlinks ui" id="navlinks" aria-label="Primary"></nav>
+  <div class="folio-container">
+    
+    <div class="content-col">
+      
+      <nav class="nav-bar">
+        <div class="brand">
+          <div class="logo-text">Vanahara<span style="color:var(--ochre)">.</span>Events</div>
+        </div>
+        <div class="nav-links">
+          <a href="#services">Craft</a>
+          <a href="#about">Origins</a>
+          <a href="#contact">Inquire</a>
+        </div>
+      </nav>
 
-        <div class="actions">
-          <button class="btn" id="copyPhoneBtn" type="button">Copy phone</button>
-          <a class="btn primary" href="#contact">Book</a>
-          <button class="burger" id="burger" type="button" aria-label="Open menu">≡</button>
+      <header id="top">
+        <span class="subtitle">Purpose • Beauty • Celebrations</span>
+        <h1>Artisan Styling <br> <span style="font-style:italic; font-weight:400; font-size:0.8em; color:var(--olive)">for life's cherished moments.</span></h1>
+        
+        <p style="font-size: 1.15rem; max-width: 90%;">
+          We are a collective of five creators based in Bangalore, weaving purpose and beauty into your celebrations. From intimate birthdays to traditional ceremonies, we approach decor with the precision of a painting.
+        </p>
+
+        <div style="margin-top: var(--s3); display: flex; gap: 10px; flex-wrap: wrap;">
+          <a href="#contact" class="btn btn-primary">Book an Event</a>
+          <a href="#services" class="btn">View Folio</a>
+        </div>
+      </header>
+
+      <div class="ornamental-divider"></div>
+
+      <section id="about">
+        <h2>The Studio</h2>
+        <div class="card">
+          <p>
+            Much like a miniature painting requires patience and a steady hand, <strong>Vanahara Events</strong> brings thoughtful design to personal weddings and community gatherings. Our focus is on setups that feel intentional, warm, and deeply photogenic—honoring both tradition and modern aesthetics.
+          </p>
+          <div class="pill">Bangalore Based</div>
+          <div class="pill">Ethical Styling</div>
+        </div>
+      </section>
+
+      <section id="services">
+        <h2>Our Offerings</h2>
+        
+        <details open>
+          <summary>Personal Celebrations</summary>
+          <div class="details-content">
+            <p>Birthdays, anniversaries, baby showers, and naming ceremonies designed with warmth.</p>
+            <ul>
+              <li>✦ Theme-based decoration</li>
+              <li>✦ Custom backdrops</li>
+              <li>✦ Balloon styling & floral accents</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Wedding & Pre-Wedding</summary>
+          <div class="details-content">
+            <p>The prelude to your union, handled with grace and vibrancy.</p>
+            <ul>
+              <li>✦ Mehandi & Haldi setups</li>
+              <li>✦ Sangeeth decoration</li>
+              <li>✦ Engagement decor</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Festive & Cultural</summary>
+          <div class="details-content">
+            <p>Traditional arrangements for Diwali, Sankranti, Ugadi, and Navratri.</p>
+          </div>
+        </details>
+      </section>
+
+      <div class="ornamental-divider"></div>
+
+      <section id="contact">
+        <h2>Correspondence</h2>
+        <p>Send us a note via WhatsApp or email.</p>
+        
+        <form id="enquiryForm" class="card" style="background: rgba(246, 237, 230, 0.8);">
+          <div class="sun-motif"></div>
+          
+          <label class="sr-only" for="name">Name</label>
+          <input id="name" name="name" placeholder="Your Name" required />
+          
+          <label class="sr-only" for="event">Event Type</label>
+          <input id="event" name="event" placeholder="Event Type (e.g., Mehandi)" />
+          
+          <label class="sr-only" for="date">Date</label>
+          <input id="date" name="date" placeholder="Date (DD/MM/YYYY)" />
+          
+          <label class="sr-only" for="msg">Details</label>
+          <textarea id="msg" name="msg" placeholder="Tell us about your vision, location, and guest count..."></textarea>
+          
+          <button type="submit" class="btn btn-primary" style="width:100%">Send via WhatsApp</button>
+        </form>
+
+        <div style="margin-top: var(--s3); display: flex; flex-wrap: wrap; gap: 15px;">
+           <a href="tel:+919902533437" class="pill" style="border-color: var(--teal);">
+            <span style="font-family: serif;">☎</span> +91 99025 33437
+           </a>
+           <a href="mailto:vanahevents@gmail.com" class="pill" style="border-color: var(--teal);">
+            <span style="font-family: serif;">✉</span> vanahevents@gmail.com
+           </a>
+        </div>
+      </section>
+
+      <footer style="margin-top: var(--s6); font-size: 0.8rem; opacity: 0.7;">
+        <p>© 2026 Vanahara Events. <br>Crafted with patience.</p>
+      </footer>
+
+    </div> <div class="visual-col sticky-side">
+      
+      <div class="hero-frame">
+        <div class="hero-frame-inner">
+           
+           <img 
+            src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=1000&auto=format&fit=crop" 
+            alt="Traditional Indian Decor Styling" 
+            class="hero-image"
+           >
         </div>
       </div>
 
-      <div class="mobileMenu ui" id="mobileMenu" aria-label="Mobile menu"></div>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero" aria-label="Hero">
-      <div class="wrap">
-        <div class="surface reveal">
-          <div class="heroInner">
-            <div class="grid heroGrid">
-              <div class="heroLeft">
-                <div class="ui" style="color:var(--muted); margin-bottom: var(--s1);">
-                  Purpose • Beauty • Celebrations
-                </div>
-
-                <h1 class="sr-only">Vanahara Events</h1>
-                <img
-                  class="heroLogo"
-                  src="https://gist.githubusercontent.com/jo4dan/01832f40330aa25a363673e9e99b03da/raw/22e8d3298449c5bf779d73b5c83e1d545efb3bd2/vanaharalogo.svg"
-                  alt="Vanahara Events"
-                  loading="eager"
-                  decoding="async"
-                />
-
-                <p class="lede">
-                  A team of five passionate creators bringing purpose and beauty to your celebrations.
-                  From kids’ birthdays to themed parties and traditional decor, we design it all with creativity and care.
-                </p>
-
-                <div class="heroCtas">
-                  <a class="btn primary" href="#services">Explore</a>
-                  <a class="btn" href="#categories">Categories</a>
-                  <a class="btn" href="#contact">Contact</a>
-                </div>
-
-                <div class="chips" id="chips" aria-label="Quick highlights"></div>
-              </div>
-
-              <div class="heroRight">
-                <div class="panel soft">
-                  <h2 style="margin-bottom: var(--s1);">What we do</h2>
-                  <p class="tiny">
-                    Minimal, photo-ready styling that stays true to your theme—modern, traditional, or festive.
-                  </p>
-
-                  <div style="height: var(--s2);"></div>
-
-                  <details open>
-                    <summary>
-                      <span class="sumTitle">Quick service list</span>
-                      <span class="chev">⌄</span>
-                    </summary>
-                    <div class="detailsBody">
-                      <ul class="bullets" id="heroServiceList"></ul>
-                    </div>
-                  </details>
-                </div>
-              </div>
-            </div><!-- /grid -->
-          </div>
+      <div style="display: grid; gap: var(--s2);">
+        <div class="card" style="padding: 10px;">
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0202128?q=80&w=600&auto=format&fit=crop" style="border-radius: 4px; filter: sepia(0.2) contrast(1.1);" alt="Floral Details">
+          <div style="text-align: center; font-size: 0.75rem; margin-top: 8px; font-style: italic; color: var(--maroon);">Floral Motifs</div>
+        </div>
+        
+        <div class="card" style="padding: 10px;">
+          <img src="https://images.unsplash.com/photo-1545063914-a1a6kcfa?q=80&w=600&auto=format&fit=crop" style="border-radius: 4px; filter: sepia(0.2) contrast(1.1);" alt="Ceremonial Lights">
+          <div style="text-align: center; font-size: 0.75rem; margin-top: 8px; font-style: italic; color: var(--maroon);">Ceremonial Light</div>
         </div>
       </div>
-    </section>
 
-    <section id="about" aria-label="About">
-      <div class="wrap">
-        <div class="grid">
-          <div class="panel reveal" style="grid-column: span 12;">
-            <h2>Introducing VANAH EVENTS</h2>
-            <p>
-              Vanahara Events brings thoughtful design and festive styling to personal celebrations, weddings, and community gatherings.
-              The focus is on creative setups that feel intentional, warm, and photo-ready.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="services" aria-label="Services">
-      <div class="wrap">
-        <div class="grid">
-          <div class="panel reveal" style="grid-column: span 12;">
-            <h2>We provide</h2>
-
-            <details open>
-              <summary>
-                <span class="sumTitle">Decor & setups</span>
-                <span class="chev">⌄</span>
-              </summary>
-              <div class="detailsBody">
-                <ul class="bullets">
-                  <li>Theme-based decoration</li>
-                  <li>Birthday setups</li>
-                  <li>Custom backdrops</li>
-                  <li>Balloon styling</li>
-                </ul>
-              </div>
-            </details>
-
-            <details>
-              <summary>
-                <span class="sumTitle">Wedding & pre-wedding</span>
-                <span class="chev">⌄</span>
-              </summary>
-              <div class="detailsBody">
-                <ul class="bullets">
-                  <li>Mehandi services</li>
-                  <li>Sangeeth decoration</li>
-                  <li>Additional personalized event services</li>
-                </ul>
-              </div>
-            </details>
-
-            <details>
-              <summary>
-                <span class="sumTitle">Festive & cultural</span>
-                <span class="chev">⌄</span>
-              </summary>
-              <div class="detailsBody">
-                <ul class="bullets">
-                  <li>Cultural & festive event arrangements</li>
-                </ul>
-              </div>
-            </details>
-
-            <div style="height: var(--s2);"></div>
-            <p class="tiny">Progressive disclosure keeps the page light: expand only what you need.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="categories" aria-label="Service categories">
-      <div class="wrap">
-        <div class="grid">
-          <div class="panel reveal" style="grid-column: span 12;">
-            <h2>Service categories</h2>
-
-            <details open>
-              <summary>
-                <span class="sumTitle">Personal celebrations</span>
-                <span class="chev">⌄</span>
-              </summary>
-              <div class="detailsBody">
-                Birthdays, anniversaries, baby showers, naming ceremonies
-              </div>
-            </details>
-
-            <details>
-              <summary>
-                <span class="sumTitle">Wedding & pre-wedding events</span>
-                <span class="chev">⌄</span>
-              </summary>
-              <div class="detailsBody">
-                Mehandi, Sangeeth, Haldi, engagement décor, photo backdrops
-              </div>
-            </details>
-
-            <details>
-              <summary>
-                <span class="sumTitle">Cultural & festive events</span>
-                <span class="chev">⌄</span>
-              </summary>
-              <div class="detailsBody">
-                Diwali, Sankranti, Navratri, Ugadi, Christmas and more
-              </div>
-            </details>
-
-            <details>
-              <summary>
-                <span class="sumTitle">Corporate & community events</span>
-                <span class="chev">⌄</span>
-              </summary>
-              <div class="detailsBody">
-                Office celebrations, themed parties, cultural meets
-              </div>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" aria-label="Contact">
-      <div class="wrap">
-        <div class="grid contactGrid">
-          <div class="panel soft reveal left">
-            <h2>Thank you</h2>
-            <p class="tiny">Contact us:</p>
-
-            <div class="pillRow">
-              <a class="pill" href="tel:+919902533437" title="Call">
-                <span class="icon">☎</span> +91 99025 33437
-              </a>
-
-              <a class="pill" href="mailto:vanahevents@gmail.com" title="Email">
-                <span class="icon">@</span> vanahevents@gmail.com
-              </a>
-            </div>
-          </div>
-
-          <div class="panel reveal mid">
-            <h2>Social</h2>
-            <p class="tiny">Handle:</p>
-            <div class="pillRow">
-              <a
-                class="pill"
-                href="https://www.instagram.com/vanahevents5?igsh=MXd0enozY2c2dm5tNg=="
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Open Instagram"
-              >
-                <span class="icon">IG</span> @vanahevents5
-              </a>
-            </div>
-          </div>
-
-          <div class="panel reveal right">
-            <h2>Quick enquiry</h2>
-            <p class="tiny">Opens WhatsApp with a prefilled message.</p>
-
-            <form class="form" id="enquiryForm">
-              <div style="display:grid; gap:6px;">
-                <label for="name">Name</label>
-                <input id="name" name="name" autocomplete="name" placeholder="Your name" />
-              </div>
-
-              <div style="display:grid; gap:6px;">
-                <label for="event">Event type</label>
-                <input id="event" name="event" placeholder="Birthday / Mehandi / Festive..." />
-              </div>
-
-              <div style="display:grid; gap:6px;">
-                <label for="date">Event date</label>
-                <input
-                  id="date"
-                  name="date"
-                  placeholder="DD/MM/YYYY"
-                  readonly
-                  inputmode="none"
-                  aria-haspopup="dialog"
-                  aria-controls="dateSheet"
-                />
-              </div>
-
-              <div style="display:grid; gap:6px;">
-                <label for="msg">Message</label>
-                <textarea id="msg" name="msg" placeholder="Location, budget, theme idea, guest count..."></textarea>
-              </div>
-
-              <button class="btn primary" type="submit">Send on WhatsApp</button>
-              <button class="btn" type="button" id="copyAllBtn">Copy details</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="wrap">
-        <div class="foot">
-          <div>© <span id="year"></span> Vanahara Events</div>
-          <div class="ui" style="color: rgba(250,234,227,.70);">
-            Theme-based decor • Weddings • Festive events
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  </main>
-
-  <div class="sheetBackdrop" id="dateBackdrop" hidden></div>
-
-  <section
-    class="sheet"
-    id="dateSheet"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="dateSheetTitle"
-    hidden
-  >
-    <div class="sheetTop">
-      <div class="sheetHandle" aria-hidden="true"></div>
-
-      <div class="sheetHead">
-        <h3 id="dateSheetTitle" class="sheetTitle">Select event date</h3>
-        <button class="sheetClose" type="button" id="dateCloseBtn" aria-label="Close date picker">✕</button>
-      </div>
-
-      <div class="sheetMeta">
-        <div class="sheetStep" id="dateStepLabel">Step 1/3 • Day</div>
-        <div class="sheetValue" id="datePreview">--/--/----</div>
-      </div>
-    </div>
-
-    <div class="sheetBody" id="dateSheetBody"></div>
-
-    <div class="sheetActions">
-      <button class="btn" type="button" id="dateBackBtn" disabled>Back</button>
-      <button class="btn primary" type="button" id="dateDoneBtn" disabled>Done</button>
-    </div>
-  </section>
+    </div> </div> <div id="toast" class="toast">Message copied to clipboard</div>
 
   <script>
-    const PHONE = "+919902533437";
-    const EMAIL = "vanahevents@gmail.com";
-    const HANDLE = "@vanahevents5";
-
-    const NAV_ITEMS = [
-      { href:"#about", label:"About" },
-      { href:"#services", label:"We provide" },
-      { href:"#categories", label:"Categories" },
-      { href:"#contact", label:"Contact" },
-    ];
-
-    const CHIPS = ["Theme decor","Birthday setups","Mehandi","Sangeeth","Backdrops","Balloon styling"];
-
-    const QUICK_SERVICES = [
-      "Theme-based decoration",
-      "Birthday setups",
-      "Mehandi services",
-      "Sangeeth decoration",
-      "Cultural & festive arrangements",
-      "Custom backdrops",
-      "Balloon styling",
-      "Additional personalized services",
-    ];
-
-    function renderLinks(container){
-      if (!container) return;
-      container.innerHTML = NAV_ITEMS.map(i => `<a href="${i.href}">${i.label}</a>`).join("");
-    }
-
-    function renderChips(){
-      const el = document.getElementById("chips");
-      if (!el) return;
-      el.innerHTML = CHIPS.map(t => `<span class="chip">${t}</span>`).join("");
-    }
-
-    function renderQuickServices(){
-      const ul = document.getElementById("heroServiceList");
-      if (!ul) return;
-      ul.innerHTML = QUICK_SERVICES.map(s => `<li>${s}</li>`).join("");
-    }
-
-    const toastEl = document.getElementById("toast");
-    let toastTimer = null;
-
-    function toast(message){
-      toastEl.textContent = message;
-      toastEl.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2200);
-    }
-
-    async function copyToClipboard(text, label){
-      try{
-        await navigator.clipboard.writeText(text);
-        toast((label || "Copied") + " ✓");
-      }catch(e){
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        ta.remove();
-        toast((label || "Copied") + " ✓");
-      }
-    }
-
-    function setHeaderHeightVar(){
-      const header = document.getElementById("siteHeader");
-      if (!header) return;
-      const h = header.getBoundingClientRect().height;
-      document.documentElement.style.setProperty("--headerH", `${Math.ceil(h)}px`);
-    }
-    window.addEventListener("resize", setHeaderHeightVar, { passive: true });
-    window.addEventListener("load", setHeaderHeightVar, { passive: true });
-    setHeaderHeightVar();
-
-    function scrollToHash(hash){
-      const id = (hash || "").replace("#", "");
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      const headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--headerH")) || 72;
-      const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--scrollGap")) || 14;
-
-      const top = el.getBoundingClientRect().top + window.scrollY - headerH - gap;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
-
-    document.addEventListener("click", (e) => {
-      const a = e.target.closest('a[href^="#"]');
-      if (!a) return;
-      const href = a.getAttribute("href");
-      if (!href || href === "#") return;
-
-      e.preventDefault();
-      document.getElementById("mobileMenu")?.classList.remove("open");
-      history.pushState(null, "", href);
-      scrollToHash(href);
-    });
-
-    window.addEventListener("load", () => {
-      if (location.hash) setTimeout(() => scrollToHash(location.hash), 50);
-    });
-
-    const burger = document.getElementById("burger");
-    const mobileMenu = document.getElementById("mobileMenu");
-    burger?.addEventListener("click", () => mobileMenu.classList.toggle("open"));
-
-    document.getElementById("copyPhoneBtn")?.addEventListener("click", () =>
-      copyToClipboard("+91 99025 33437", "Phone copied")
-    );
-
-    document.getElementById("copyAllBtn")?.addEventListener("click", () => {
-      const all = `Vanahara Events\nPhone: +91 99025 33437\nInstagram: ${HANDLE}\nEmail: ${EMAIL}`;
-      copyToClipboard(all, "Details copied");
-    });
-
-    document.getElementById("enquiryForm")?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = (document.getElementById("name").value || "").trim();
-      const eventType = (document.getElementById("event").value || "").trim();
-      const date = (document.getElementById("date").value || "").trim();
-      const msg = (document.getElementById("msg").value || "").trim();
-
-      const parts = [];
-      parts.push("Hello Vanahara Events,");
-      if (name) parts.push(`Name: ${name}`);
-      if (eventType) parts.push(`Event: ${eventType}`);
-      if (date) parts.push(`Date: ${date}`);
-      if (msg) parts.push(`Details: ${msg}`);
-      parts.push("Please share available packages and pricing.");
-
-      const wa = `https://wa.me/${PHONE.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(parts.join("\n"))}`;
-      window.open(wa, "_blank", "noopener,noreferrer");
-    });
-
-    const revealEls = [...document.querySelectorAll(".reveal")];
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting){
-          entry.target.classList.add("in");
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => io.observe(el));
-
-    window.addEventListener("load", () => {
-      renderLinks(document.getElementById("navlinks"));
-      renderLinks(document.getElementById("mobileMenu"));
-
-      const mm = document.getElementById("mobileMenu");
-      if (mm && !document.getElementById("copyPhoneBtnMobile")){
-        const btn = document.createElement("button");
-        btn.className = "menuItem";
-        btn.id = "copyPhoneBtnMobile";
-        btn.type = "button";
-        btn.textContent = "Copy phone";
-        mm.appendChild(btn);
-
-        btn.addEventListener("click", () => {
-          copyToClipboard("+91 99025 33437", "Phone copied");
-          mm.classList.remove("open");
-        });
-      }
-
-      renderChips();
-      renderQuickServices();
-    });
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    (function(){
-      const dateInput = document.getElementById("date");
-      const sheet = document.getElementById("dateSheet");
-      const backdrop = document.getElementById("dateBackdrop");
-      const body = document.getElementById("dateSheetBody");
-      const closeBtn = document.getElementById("dateCloseBtn");
-      const backBtn = document.getElementById("dateBackBtn");
-      const doneBtn = document.getElementById("dateDoneBtn");
-      const stepLabel = document.getElementById("dateStepLabel");
-      const preview = document.getElementById("datePreview");
-      const msgField = document.getElementById("msg"); // next field to focus
-
-      if (!dateInput || !sheet || !backdrop || !body || !closeBtn || !backBtn || !doneBtn || !stepLabel || !preview) return;
-
-      const MOBILE_ONLY = false;
-      const isMobile = () => window.matchMedia("(max-width: 700px)").matches;
-
-      const pad2 = (n) => String(n).padStart(2, "0");
-      const monthNames = ["01","02","03","04","05","06","07","08","09","10","11","12"];
-
-      const state = { step: "day", day: null, month: null, year: null };
-      const YEAR_MIN = new Date().getFullYear();
-      const YEAR_MAX = YEAR_MIN + 5;
-
-      let lastActive = null;
-      let ignoreNextOpen = false;
-
-      function daysInMonth(year, month){
-        return new Date(year, month, 0).getDate();
-      }
-
-      function getFocusable(container){
-        return [...container.querySelectorAll(
-          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )];
-      }
-
-      function setPreview(){
-        const dd = state.day ? pad2(state.day) : "--";
-        const mm = state.month ? pad2(state.month) : "--";
-        const yy = state.year ? String(state.year) : "----";
-        preview.textContent = `${dd}/${mm}/${yy}`;
-      }
-
-      function renderDay(){
-        state.step = "day";
-        stepLabel.textContent = "Step 1/3 • Day";
-        backBtn.disabled = true;
-        doneBtn.disabled = true;
-
-        const items = Array.from({length: 31}, (_, i) => i + 1).map(d => {
-          const selected = state.day === d;
-          return `<button class="dpItem" type="button" data-day="${d}" aria-selected="${selected}">${pad2(d)}</button>`;
-        }).join("");
-
-        body.innerHTML = `<div class="dpGrid" role="list">${items}</div>`;
-      }
-
-      function renderMonth(){
-        state.step = "month";
-        stepLabel.textContent = "Step 2/3 • Month";
-        backBtn.disabled = false;
-        doneBtn.disabled = true;
-
-        const assumedYear = state.year || 2024;
-        const items = monthNames.map((mStr, idx) => {
-          const m = idx + 1;
-          const max = daysInMonth(assumedYear, m);
-          const disabled = state.day && state.day > max;
-          const selected = state.month === m;
-
-          return `<button class="dpItem" type="button" data-month="${m}" ${disabled ? "disabled" : ""} aria-selected="${selected}">${mStr}</button>`;
-        }).join("");
-
-        body.innerHTML = `<div class="dpGrid" role="list">${items}</div>`;
-      }
-
-      function renderYear(){
-        state.step = "year";
-        stepLabel.textContent = "Step 3/3 • Year";
-        backBtn.disabled = false;
-
-        const years = [];
-        for (let y = YEAR_MIN; y <= YEAR_MAX; y++) years.push(y);
-
-        const items = years.map(y => {
-          const selected = state.year === y;
-          return `<button class="dpItem" type="button" data-year="${y}" aria-selected="${selected}">${y}</button>`;
-        }).join("");
-
-        body.innerHTML = `<div class="dpList" role="list">${items}</div>`;
-        doneBtn.disabled = !(state.day && state.month && state.year);
-      }
-
-      function render(){
-        setPreview();
-        if (state.step === "day") renderDay();
-        else if (state.step === "month") renderMonth();
-        else renderYear();
-      }
-
-      function openSheet(){
-        if (ignoreNextOpen) { ignoreNextOpen = false; return; }
-        if (MOBILE_ONLY && !isMobile()) return;
-
-        lastActive = document.activeElement;
-        backdrop.hidden = false;
-        sheet.hidden = false;
-
-        state.step = "day";
-        render();
-
-        closeBtn.focus();
-        document.body.style.overflow = "hidden";
-      }
-
-      function closeSheet({ returnFocus = true } = {}){
-        sheet.hidden = true;
-        backdrop.hidden = true;
-        document.body.style.overflow = "";
-
-        if (returnFocus && lastActive && typeof lastActive.focus === "function"){
-          // prevent immediate reopen when focus returns to #date
-          ignoreNextOpen = true;
-          lastActive.focus();
-        }
-      }
-
-      function focusNextField(){
-        // Move user forward in the form (prevents date re-open loop too)
-        if (msgField && typeof msgField.focus === "function") msgField.focus();
-      }
-
-      function onKeyDown(e){
-        if (sheet.hidden) return;
-
-        if (e.key === "Escape"){
-          e.preventDefault();
-          closeSheet();
-          return;
-        }
-
-        if (e.key !== "Tab") return;
-
-        const focusables = getFocusable(sheet);
-        if (!focusables.length) return;
-
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-
-        if (e.shiftKey && document.activeElement === first){
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last){
-          e.preventDefault();
-          first.focus();
-        }
-      }
-
-      // OPEN ONLY ON CLICK (NOT on focus) to avoid reopen loop
-      dateInput.addEventListener("click", openSheet);
-
-      closeBtn.addEventListener("click", () => closeSheet());
-      backdrop.addEventListener("click", () => closeSheet());
-      document.addEventListener("keydown", onKeyDown);
-
-      backBtn.addEventListener("click", () => {
-        if (state.step === "month"){
-          state.month = null;
-          state.year = null;
-          state.step = "day";
-        } else if (state.step === "year"){
-          state.year = null;
-          state.step = "month";
-        }
-        render();
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. WhatsApp Form Handler
+      const form = document.getElementById('enquiryForm');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const event = document.getElementById('event').value;
+        const date = document.getElementById('date').value;
+        const msg = document.getElementById('msg').value;
+        
+        const text = `Namaste Vanahara Events,%0A%0AI would like to enquire about a booking:%0A*Name:* ${name}%0A*Event:* ${event}%0A*Date:* ${date}%0A*Details:* ${msg}`;
+        
+        // Open WhatsApp
+        window.open(`https://wa.me/919902533437?text=${text}`, '_blank');
       });
 
-      doneBtn.addEventListener("click", () => {
-        if (!(state.day && state.month && state.year)) return;
-
-        if (state.day > daysInMonth(state.year, state.month)){
-          state.step = "month";
-          state.month = null;
-          render();
-          return;
+      // 2. Parallax Effect for Texture & Hero
+      // Simulates the shifting perspective in 2D miniature paintings
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const heroImg = document.querySelector('.hero-image');
+        const sun = document.querySelector('.sun-motif');
+        
+        if(heroImg) {
+          heroImg.style.transform = `translateY(${scrolled * 0.05}px) scale(1.02)`;
         }
-
-        dateInput.value = `${pad2(state.day)}/${pad2(state.month)}/${state.year}`;
-
-        // Close WITHOUT returning focus to #date, then focus the next field.
-        closeSheet({ returnFocus: false });
-        focusNextField();
+        if(sun) {
+          sun.style.transform = `rotate(${scrolled * 0.2}deg)`;
+        }
       });
 
-      body.addEventListener("click", (e) => {
-        const btn = e.target.closest("button");
-        if (!btn || btn.disabled) return;
-
-        if (btn.dataset.day){
-          state.day = Number(btn.dataset.day);
-          state.month = null;
-          state.year = null;
-          state.step = "month";
-          render();
-          body.querySelector("button.dpItem:not([disabled])")?.focus();
-          return;
-        }
-
-        if (btn.dataset.month){
-          state.month = Number(btn.dataset.month);
-          state.year = null;
-          state.step = "year";
-          render();
-          body.querySelector("button.dpItem")?.focus();
-          return;
-        }
-
-        if (btn.dataset.year){
-          state.year = Number(btn.dataset.year);
-
-          if (state.day && state.month && state.day > daysInMonth(state.year, state.month)){
-            state.step = "month";
-            state.month = null;
-            state.year = null;
-            render();
-            return;
+      // 3. Smooth Reveal
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
           }
+        });
+      }, { threshold: 0.1 });
 
-          doneBtn.disabled = false;
-          setPreview();
-
-          body.querySelectorAll("button[data-year]").forEach(b => b.setAttribute("aria-selected", "false"));
-          btn.setAttribute("aria-selected", "true");
-          return;
-        }
+      document.querySelectorAll('.card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        observer.observe(card);
       });
-    })();
+
+      // 4. Toast helper
+      window.showToast = (message) => {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('active');
+        setTimeout(() => toast.classList.remove('active'), 3000);
+      }
+    });
   </script>
+
 </body>
 </html>
-
